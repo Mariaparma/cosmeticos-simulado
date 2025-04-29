@@ -1,32 +1,24 @@
-const express = require('express');
-const app = express();
-const marcaRoutes = require('./src/routes/marcaRoutes.js'); 
-const cosmeticosRoutes = require('./src/routes/comesticosRoutes.js');
-const setupSwagger = require('./src/config/swagger.js');
+require("dotenv").config(); 
+const express = require("express");  
+const cors = require("cors");  
+const wizardRoutes = require("./src/routes/wizardRoutes");
+const houseRoutes = require("./src/routes/houseRoutes");
+const reportRoutes = require("./src/routes/reportRoutes");
+const setupSwagger = require('./src/config/swagger');
+const path = require("path");
 
-
+const app = express();  
+app.use(cors());
 app.use(express.json());
 
-
+app.use("/api/wizards", wizardRoutes);
+app.use("/api/houses", houseRoutes);
+app.use("/api", reportRoutes);
 setupSwagger(app);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+const PORT = process.env.PORT || 3000;  
 
-app.use('/api/marcas', marcaRoutes); 
-app.use('/api/cosmeticos', cosmeticosRoutes);
-
-
-app.use((req, res, next) => {
-    res.status(404).json({ message: "Rota não encontrada." });
-});
-
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: "Erro interno do servidor." });
-});
-
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+app.listen(PORT, () => {  
+    console.log(` 🚀  Servidor rodando http://localhost:${PORT}`);  
 });

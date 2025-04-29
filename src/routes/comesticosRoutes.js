@@ -2,16 +2,13 @@ const express = require("express");
 const router = express.Router();
 const cosmeticosController = require("../controllers/cosmeticosController.js");
 
-// Middleware para verificar API Key
-const verifyApiKey = (req, res, next) => {
-    const apiKey = req.headers["x-api-key"];
-    if (apiKey !== process.env.API_KEY) {
-        return res.status(403).json({ message: "Acesso negado. API Key inválida." });
-    }
-    next();
-};
+/**
+ * @swagger
+ * tags:
+ *   name: Cosmeticos
+ *   description: Gerenciamento de cosméticos
+ */
 
-// Rotas para cosméticos
 /**
  * @swagger
  * /cosmeticos:
@@ -28,7 +25,7 @@ const verifyApiKey = (req, res, next) => {
  *               items:
  *                 $ref: '#/components/schemas/Cosmetico'
  */
-router.get("/", verifyApiKey, cosmeticosController.getAllCosmeticos);
+router.get("/", cosmeticosController.getAllCosmeticos);
 
 /**
  * @swagger
@@ -53,7 +50,7 @@ router.get("/", verifyApiKey, cosmeticosController.getAllCosmeticos);
  *       404:
  *         description: Cosmético não encontrado
  */
-router.get("/:id", verifyApiKey, cosmeticosController.getCosmetico);
+router.get("/:id", cosmeticosController.getCosmetico);
 
 /**
  * @swagger
@@ -75,7 +72,7 @@ router.get("/:id", verifyApiKey, cosmeticosController.getCosmetico);
  *             schema:
  *               $ref: '#/components/schemas/Cosmetico'
  */
-router.post("/", verifyApiKey, cosmeticosController.createCosmetico);
+router.post("/", cosmeticosController.createCosmetico);
 
 /**
  * @swagger
@@ -106,7 +103,7 @@ router.post("/", verifyApiKey, cosmeticosController.createCosmetico);
  *       404:
  *         description: Cosmético não encontrado
  */
-router.put("/:id", verifyApiKey, cosmeticosController.updateCosmetico);
+router.put("/:id", cosmeticosController.updateCosmetico);
 
 /**
  * @swagger
@@ -127,6 +124,6 @@ router.put("/:id", verifyApiKey, cosmeticosController.updateCosmetico);
  *       404:
  *         description: Cosmético não encontrado
  */
-router.delete("/:id", verifyApiKey, cosmeticosController.deleteCosmetico);
+router.delete("/:id", cosmeticosController.deleteCosmetico);
 
 module.exports = router;
