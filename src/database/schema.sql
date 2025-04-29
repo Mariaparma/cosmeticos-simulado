@@ -2,7 +2,7 @@
 CREATE TABLE marca (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    produto VARCHAR(100),
+    produto VARCHAR(100) NOT NULL
 
 );
 

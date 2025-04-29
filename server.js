@@ -1,11 +1,14 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-
-
+const express = require('express');
 const app = express();
-app.use(cors());
+const marcaRoutes = require('./src/routes/marcaRoutes.js');
+const cosmeticosRoutes = require('./src/routes/comesticosRoutes.js');   
+const setupSwagger = require('./src/config/swagger.js');
+
 app.use(express.json());
+setupSwagger(app); 
+
+app.use('/api/marcas', marcaRoutes);
+app.use('/api/cosmeticos', cosmeticosRoutes);
 
 
 
