@@ -1,9 +1,10 @@
 const cosmeticosModel = require("../models/cosmeticosModel.js");
 
+
 const getAllCosmeticos = async (req, res) => {
     try {
-        const cosmeticos = await cosmeticosModel.getAllCosmeticos();
-        res.json(cosmeticos);
+        const [rows] = await db.query("SELECT * FROM cosmeticos");
+        res.json(rows);
     } catch (error) {
         console.error("Erro ao buscar cosméticos:", error);
         res.status(500).json({ message: "Erro ao buscar cosméticos." });

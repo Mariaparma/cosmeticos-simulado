@@ -1,11 +1,8 @@
-
 CREATE TABLE marca (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     produto VARCHAR(100) NOT NULL
-
 );
-
 
 CREATE TABLE cosmeticos (
     id SERIAL PRIMARY KEY,
@@ -16,12 +13,10 @@ CREATE TABLE cosmeticos (
     FOREIGN KEY (marca_id) REFERENCES marca(id) ON DELETE CASCADE
 );
 
-
 INSERT INTO marca (nome, produto) VALUES 
 ('Marca A', 'Shampoo'),
 ('Marca B', 'Condicionador'),
 ('Marca C', 'Creme Hidratante');
-
 
 INSERT INTO cosmeticos (nome, descricao, preco, marca_id) VALUES 
 ('Shampoo Anticaspa', 'Shampoo para controle de caspa', 19.90, 1),
